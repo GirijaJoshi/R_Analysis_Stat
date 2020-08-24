@@ -1,0 +1,100 @@
+MPG Regression
+
+We have used multiple liner regression on MechaCar_mpg dataset. We looked at each independent variable to determine if there is a significance relationship with dependent variable. 
+To predict ‘mpg’  dependent variable , can we add other variables such as ‘vehicle.length’, ‘vehicle.weight’, ‘spoiler.angle’, ‘ground.clearance’  as independent variable to our multiple linear regression model.
+
+lm(mpg ~ vehicle.length + vehicle.weight + spoiler.angle + ground.clearance , data = mecha_car)
+Coefficients:
+     (Intercept)    vehicle.length    vehicle.weight  spoiler.angle  ground.clearance
+      -1.076e+02         6.240e+00         1.276e-03           8.031e-02         3.659e+00
+
+Get statistical metrics using summary()
+Call:
+lm(formula = mpg ~ vehicle.length + vehicle.weight + spoiler.angle + ground.clearance, data = mecha_car)
+Residuals:
+     Min       1Q         Median       3Q      Max 
+-21.3395      -4.1155     -0.2094      6.8789  17.2672 
+
+Coefficients:
+                  Estimate         Std. Error       t value      Pr(>|t|)    
+(Intercept)       -1.076e+02      1.576e+01         -6.823       1.87e-08 ***
+vehicle.length     6.240e+00      6.609e-01          9.441       3.05e-12 ***
+vehicle.weight    1.277e-03       6.948e-04          1.837       0.0728 .  
+spoiler.angle     8.031e-02       6.656e-02          1.207       0.2339    
+ground.clearance  3.659e+00       5.394e-01          6.784       2.13e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Residual standard error: 8.853 on 45 degrees of freedom
+Multiple R-squared:  0.7032,	Adjusted R-squared:  0.6768 
+F-statistic: 26.65 on 4 and 45 DF,  p-value: 2.277e-11
+
+According to summary R-Squared value is 0.70 , 70% MPG variation can be explained by our model. That is can be explained by vehicle.length, vehicle.weight, spoiler.angle, ground.cleaarance. p-value is 2.277e-11 which much less than our assumed significance value which is 0.05 that means we can reject null hypothesis. 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Suspension Coil Summary
+
+According to data summary on Suspension Coil we can group by data according to lot. As there are 3 lots and using group we can use summarize function to find out “mean, median, variance and standard deviation”. Which gives something like this below:
+
+Manufacturing_Lot  Mean     Median    Variance    Standard_Deviation
+  <chr>            <dbl>       <dbl>        <dbl>              <dbl>
+1 Lot1             1500.          1500.      1.15               1.07
+2 Lot2             1500.         1499.      10.1                3.18
+3 Lot3             1499.         1498.      220.                14.8
+
+Lot1 has variance has value 1.15 lbs and Lot 2 variance is 10.1 which shows that avg is not far from mean. Both Lot1 and Lot2 are less than 100 and due to this Lot1 and Lot2 design is acceptable. But Lot2 has variance value 220 which means deviation from mean of data is high so more variability and which is more than 100 and due to this reason we can not accept Lot3 design.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Suspension Coil T-Test
+
+Here we have to use t.test() to findout suspension coil’s pount-per-inch results are statistically different from mean. Using t.test() we are getting following information:
+
+t.test(suspension_coil$PSI, mu=1500)
+
+	One Sample t-test
+
+data:  suspension_coil$PSI
+t = -0.65784, df = 149, p-value = 0.5117
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1498.122 1500.940
+sample estimates:
+mean of x 
+ 1499.531
+ 
+According to data we are seeing that p-value is 0.5117 and mean is 1499.531 which is very close to 1500 that means data is not statistically different from mu (1500).
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Design Your Own Study
+
+In general for MechaCar to outperform the competition there are couple of metrics we have to consider. For example Cost of the car, Fuel Efficiency, Repair Cost etc. Now a days people are looking for saving the car cost. 
+
+The question I would ask what is fuel efficiency of MechaCar and the fuel efficiency of the competitor’s same type of car. Here we are comparing same fuel efficiency of same types of cars. 
+
+Ho Hypothesis would be : The difference between out pair observations (the true mean difference) is equal to zero.
+Ha: The difference between out pair observations (the true mean difference) is not equal to zero
+
+To reject the H0 hypotheis to prove MechCar outperforms the competition we need to collect the fuel efficiency data for MechaCar and the competition same type of car. We can take top performing competition car and collects its fuel efficiency data.
+
+Here we can use Two Sample Test for fuel efficiency and check the difference between MEchaCar and competition.
+
+Example:
+We have collected fuel efficiency data for mecharcar and top performing competition car (fule_efficiency_data). With the help of Two-Sample t.test(), can see is there is any statistical difference between the distribution means between two samples.
+
+By using Two-Sample t.test() would give is p-value and if p-value is less that 0.05 then we can reject or keep the H0 hypothesis.
+
+In term of R, if we collect the fuel efficiency data for same route and same distance for both MechaCar and the competitor’s (top) car then we would be able to verify our hypothesis. Here is sample R code we can test. Assuming we have fule_efficiency_data.
+
+fule_effi_mecha <- fule_efficiency_data %>% filter(fule_efficiency=mecha_car_fule_effi)
+fule_effi_competition <- fule_efficiency_data %>% filter(fule_efficiency=competition_car_fule_effi)
+
+t.test(fule_effi_mecha$fule_efficiency, fule_effi_competition$fule_efficiency, paired=T)
+Above equation will give us p-value and confidence level in our hypothesis and from that we can check our hypothesis.
+
+
+
+
+
