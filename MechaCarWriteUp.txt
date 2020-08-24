@@ -28,8 +28,9 @@ Residual standard error: 8.853 on 45 degrees of freedom
 Multiple R-squared:  0.7032,	Adjusted R-squared:  0.6768 
 F-statistic: 26.65 on 4 and 45 DF,  p-value: 2.277e-11
 
-According to summary R-Squared value is 0.70 , 70% MPG variation can be explained by our model. That is can be explained by vehicle.length, vehicle.weight, spoiler.angle, ground.cleaarance. p-value is 2.277e-11 which much less than our assumed significance value which is 0.05 that means we can reject null hypothesis. 
+By using result vechicle.length and ground.cleaarance will provide non random amount of variance. The splop of the line linear model is not zero as p-value is less than 0.05.
 
+According to summary R-Squared value is 0.70 , 70% MPG variation can be explained by our model. That is can be explained by vehicle.length, vehicle.weight, spoiler.angle, ground.cleaarance. p-value is 2.277e-11 which much less than our assumed significance value which is 0.05 that means we can reject null hypothesis. From this we can say that our linear model can predict mpg of MechaCar protypes.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
